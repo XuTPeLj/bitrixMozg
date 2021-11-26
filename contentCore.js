@@ -59,7 +59,7 @@ function add_event(element, event, func) {
 function loadStyleEx(document, text) {
     var head = document.head || document.getElementsByTagName('head')[0],
         style = document.createElement('style');
-    console.log('[head]', document);
+
     head.appendChild(style);
 
     style.type = 'text/css';

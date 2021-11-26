@@ -6,11 +6,15 @@ if (window.location.host === 'welcomepro.bitrix24.ru') {
 
     function findPopup() {
         let all = document.querySelectorAll('a.bx-messenger-popup-menu-item');
-        for (let i in all) {
+        let i;
+        for (i in all) {
             if (isNaN(i)) break;
             if (all[i].href && all[i].href.indexOf('/crm/company/details/') != -1) {
                 return all[i].href;
             }
+        }
+        if (i) {
+            return false;
         }
     }
 
@@ -76,11 +80,13 @@ if (window.location.host === 'welcomepro.bitrix24.ru') {
 
         for (let i in all) {
             if (isNaN(i)) break;
-            if (visible(all[i])) {
+            if (visible(all[i]) && !document.querySelector('a.bx-messenger-popup-menu-item')) {
                 all[i].click();
                 let url = findPopup();
                 if (url) {
                     showIframe(url + '?IFRAME=Y&IFRAME_TYPE=SIDE_SLIDER');
+                } else if (url === false) {
+                    showIframe('javascript:void(0)');
                 }
                 all[i].click();
             }
